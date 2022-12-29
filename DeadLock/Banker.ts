@@ -9,7 +9,7 @@ class Process {
 class Banker {
     public Available: number[] = [];
     public Processes: Process[] = [];
-    public request: number[] = [];
+    public request?: number[] | null = null;
     public requestProcessName: string = "";
     private work: number[] = [];
     constructor(avail: number[], processes: Process[]) {
@@ -32,36 +32,30 @@ class Banker {
 
     public isSafe(): boolean {
         this.work = [...this.Available];
-        for (let i = 0; i < this.Available.length; i++) {
-            this.work[i] -= this.request[i];
+        if (this.request) {
+            for (let i = 0; i < this.Available.length; i++) {
+                this.work[i] -= this.request[i];
+            }
         }
         console.log("work", this.work);
-
-        let needUpdateAlocation = this.Processes.find((p) => p.name === this.requestProcessName);
-        if (needUpdateAlocation) {
-            for (let i = 0; i < needUpdateAlocation.Alocation.length; i++) {
-                needUpdateAlocation.Alocation[i] += this.request[i];
+        if (this.request) {
+            let needUpdateAlocation = this.Processes.find((p) => p.name === this.requestProcessName);
+            if (needUpdateAlocation) {
+                for (let i = 0; i < needUpdateAlocation.Alocation.length; i++) {
+                    needUpdateAlocation.Alocation[i] += this.request[i];
+                }
+            } else {
+                throw new Error("request process not found");
             }
-        } else {
-            throw new Error("request process not found");
         }
+        console.log("Need:");
         this.Processes.forEach((p) => {
             p.Need = p.Max.map((m, i) => m - p.Alocation[i]);
             console.log(p.name, p.Need);
         });
+        console.log("-".repeat(20));
         let beforeStatus = new Set<string>();
         while (true) {
-            // this.Processes.forEach((p) => {
-            //     if (!p.Finish && this.checkFinish(p.Need!)) {
-            //         this.updateWork(p.Alocation);
-            //         p.Finish = true;
-            //         console.log(p.name, true);
-            //     } else {
-            //         if (!p.Finish) console.log(p.name, false);
-            //         else console.log(p.name, "finish!");
-            //     }
-            // });
-            // change to for i
             for (let i = 0; i < this.Processes.length; i++) {
                 if (!this.Processes[i].Finish && this.checkFinish(this.Processes[i].Need!)) {
                     this.updateWork(this.Processes[i].Alocation);
@@ -128,7 +122,7 @@ const main = () => {
         },
     ];
     const banker = new Banker([6, 2, 2], processes);
-    console.log(banker.requestResource("P1", [1, 1, 0]));
+    // console.log(banker.requestResource("P1", [1, 1, 0]));
     const isSafe = banker.isSafe();
     console.log(isSafe);
 };
