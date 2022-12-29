@@ -13,7 +13,7 @@ const createSolution = (schedulerType: SchedulerType, processTaskList: ProcessTa
             return new SRTFSolution(processTaskList);
         case SchedulerType.RR:
             if (timeQuantum === undefined) {
-                throw new Error("Time quantum is undefined");
+                throw new Error("Time quantum is required for Round Robin scheduling");
             }
             return new RRSolution(processTaskList, timeQuantum!);
     }

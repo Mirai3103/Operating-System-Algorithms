@@ -1,4 +1,4 @@
-import { GanntChart, ProcessTaskQueue, Queue, SchedulerType, Task, TaskStatus, TaskType } from "./CPUSchedulingTypes";
+import { GanntChart, ProcessTaskQueue, Queue, Task, TaskStatus, TaskType } from "./CPUSchedulingTypes";
 
 class FCFSSolution {
     public processTaskList: ProcessTaskQueue[] = [];
@@ -49,7 +49,7 @@ class FCFSSolution {
                         const processTask = this.processTaskList.filter((p) => p.processName === task.belongTo)[0];
                         if (processTask.taskQueue.isEmpty()) {
                             // process finished
-                            console.log(`${task.belongTo} finished at ${time}`);
+                            console.log(`${task.belongTo} finished at ${time + 1}`);
                         } else {
                             this.pushTaskToQueue(processTask.taskQueue.dequeue()!);
                         }
@@ -69,7 +69,7 @@ class FCFSSolution {
                         const processTask = this.processTaskList.filter((p) => p.processName === task.belongTo)[0];
                         if (processTask.taskQueue.isEmpty()) {
                             // process finished
-                            console.log(`${task.belongTo} finished at ${time}`);
+                            console.log(`${task.belongTo} finished at ${time + 1}`);
                         } else {
                             this.pushTaskToQueue(processTask.taskQueue.dequeue()!);
                         }
@@ -89,7 +89,7 @@ class FCFSSolution {
                         const processTask = this.processTaskList.filter((p) => p.processName === task.belongTo)[0];
                         if (processTask.taskQueue.isEmpty()) {
                             // process finished
-                            console.log(`${task.belongTo} finished at ${time}`);
+                            console.log(`${task.belongTo} finished at ${time + 1}`);
                         } else {
                             this.pushTaskToQueue(processTask.taskQueue.dequeue()!);
                         }
@@ -116,7 +116,7 @@ class FCFSSolution {
                 this.waitCpuQueue.dequeue();
                 const processTask = this.processTaskList.filter((p) => p.processName === task.belongTo)[0];
                 if (processTask.taskQueue.isEmpty()) {
-                    console.log(`${task.belongTo} finished at ${time}`);
+                    console.log(`${task.belongTo} finished at ${time + 1}`);
                 } else {
                     const nextTask = processTask.taskQueue.dequeue()!;
                     this.pushTaskToQueue(nextTask);
@@ -140,5 +140,4 @@ class FCFSSolution {
         }
     }
 }
-
 export default FCFSSolution;

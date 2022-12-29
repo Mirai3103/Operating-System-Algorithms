@@ -2,11 +2,14 @@
     "name": "cpu-scheduling",
     "version": "1.0.0",
     "main": "index.js",
-    "license": "MIT",
+    "license": "Apache License 2.0",
     "dependencies": {
         "ts-node": "^10.9.1"
     },
     "devDependencies": {
         "typescript": "^4.8.4"
+    },
+    "scripts": {
+        "start": "ts-node index.ts"
     }
 }

@@ -5,12 +5,12 @@ const process1 = new ProcessTaskQueue("P1", 0);
 process1.addTask(new Task(TaskType.CPU, 8));
 process1.addTask(new Task(TaskType.IO1, 5));
 process1.addTask(new Task(TaskType.CPU, 1));
+
 const process2 = new ProcessTaskQueue("P2", 2);
 process2.addTask(new Task(TaskType.CPU, 1));
 process2.addTask(new Task(TaskType.IO2, 8));
 process2.addTask(new Task(TaskType.CPU, 2));
 process2.addTask(new Task(TaskType.IO1, 5));
-
 const process3 = new ProcessTaskQueue("P3", 10);
 process3.addTask(new Task(TaskType.CPU, 6));
 process3.addTask(new Task(TaskType.IO1, 5));

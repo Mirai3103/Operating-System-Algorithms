@@ -36,6 +36,7 @@ class RRSolution extends FCFSSolution {
                 }
             }
             if (task.status === TaskStatus.EndCycle) {
+                // console.log(`${task.belongTo} wait at ${time}`);
                 const task1 = this.waitCpuQueue.dequeue();
                 task1!.status = TaskStatus.Waiting;
                 this.waitCpuQueue.enqueue(task1!);
